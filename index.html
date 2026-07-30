@@ -17,14 +17,72 @@
   <symbol id="icon-mouse" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="5"/><path d="M12 7v4"/></symbol>
 </svg>
 
-<h1 class="sr-only">Urban Glide Private Limited — We bring certainty to every move that matters</h1>
+<div class="page page--wide">
 
-<main class="hero">
-  <img src="assets/images/hero-map.jpg" alt="Urban Glide — We bring certainty to every move that matters. An illustrated map showing logistics touchpoints: Let's go, With whom, Why, Let's talk, How, and You at the center.">
+  <header class="top">
+    <div class="brand">
+      <p class="name">URBAN GLIDE</p>
+      <p class="sub">PRIVATE LIMITED</p>
+    </div>
+    <div class="tagline-wrap">
+      <div class="rule"></div>
+      <div class="tagline">
+        You are not short on transporters.<br>
+        You are short on <b>certainty</b>.
+      </div>
+    </div>
+  </header>
+  <hr class="divider">
 
-  <button type="button" class="hotspot" id="hotspot-letsgo" aria-haspopup="dialog" aria-controls="who-modal" aria-label="Let's go — Learn who Urban Glide is"></button>
-  <a class="hotspot" id="hotspot-you" href="you.html" aria-label="You — See clients, industries and case studies"></a>
-</main>
+  <section class="hero">
+    <h1>We bring <b>certainty</b><br>to every move that matters.</h1>
+    <p>Urban Glide is a B2B logistics partner that takes ownership across your supply chain — from origin to every destination that moves your business forward.</p>
+    <div class="scroll-indicator">
+      <div class="label">SCROLL TO EXPLORE</div>
+      <div class="arrow">&#8595;</div>
+    </div>
+  </section>
+
+  <div class="illustration-wrap" id="illustrationWrap">
+    <div class="scene-layer far" id="layerFar">
+      <svg id="scene" viewBox="0 0 1024 1190" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6"/>
+          </filter>
+          <filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="2.4"/>
+          </filter>
+          <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+            <stop offset="60%" stop-color="#ffffff" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="platformShade" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- background wash -->
+        <rect x="0" y="0" width="1024" height="1190" fill="var(--bg)"/>
+
+        <g id="terrainGroup"></g>
+        <g id="treesFarGroup"></g>
+        <g id="roadsGroup"></g>
+        <g id="platformsGroup"></g>
+        <g id="buildingsGroup"></g>
+        <g id="treesNearGroup"></g>
+        <g id="hubGroup"></g>
+        <g id="planeGroup"></g>
+      </svg>
+    </div>
+
+    <div class="pills-layer" id="layerNear"></div>
+  </div>
+
+  <footer class="pad"></footer>
+</div>
 
 <div class="modal-overlay" id="who-modal" role="dialog" aria-modal="true" aria-labelledby="who-modal-title">
   <div class="modal-card">
@@ -56,11 +114,7 @@
   </div>
 </div>
 
-<script>
-  document.getElementById('hotspot-letsgo').addEventListener('click', function () {
-    if (window.openWhoModal) window.openWhoModal(this);
-  });
-</script>
+<script src="assets/js/scene.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

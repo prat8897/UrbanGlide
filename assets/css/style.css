@@ -7,6 +7,12 @@
   --gray: #7a7a77;
   --gray-light: #a9a9a6;
   --line: #d8d8d5;
+  --pill-bg: rgba(255,255,255,0.92);
+  --road: #58585a;
+  --road-dark: #454547;
+  --face-top: #f6f6f4;
+  --face-left: #d9d9d6;
+  --face-right: #c2c2be;
 
   --bg-alt: #eae8e2;
   --accent: #6e7a3a;
@@ -74,6 +80,15 @@ button {
   background: radial-gradient(ellipse at 50% 0%, #f7f7f5 0%, var(--bg) 60%);
 }
 
+/* Homepage only: the hero illustration is an SVG (real vector, not a raster
+   screenshot), so it stays perfectly crisp at any size — let it grow with
+   the viewport on widescreen instead of stopping at --max-w and leaving
+   empty gutters. Capped at 1600px so it doesn't get absurdly tall on
+   ultrawide monitors (the artwork is a tall/portrait composition). */
+.page--wide {
+  max-width: clamp(1024px, 90vw, 1600px);
+}
+
 /* ---------- Header ---------- */
 
 header.top {
@@ -130,51 +145,146 @@ hr.divider {
   margin: 0 0 46px 0;
 }
 
-/* ---------- Homepage hero (single full-page artwork; header + copy are baked into the image) ---------- */
+/* ---------- Homepage hero ---------- */
 
-.hero {
+.hero { padding-bottom: 8px; }
+
+.hero h1 {
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.3px;
+  margin: 0 0 18px 0;
+  color: var(--ink);
+}
+
+.hero h1 b { font-weight: 700; }
+
+.hero p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--gray);
+  max-width: 430px;
+  margin: 0;
+}
+
+.scroll-indicator {
+  text-align: center;
+  margin: 26px 0 0 0;
+  color: var(--gray-light);
+}
+
+.scroll-indicator .label {
+  font-size: 10.5px;
+  letter-spacing: 3.5px;
+  font-weight: 600;
+}
+
+.scroll-indicator .arrow {
+  margin-top: 6px;
+  font-size: 15px;
+  animation: floaty 2.2s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); opacity: .7; }
+  50% { transform: translateY(5px); opacity: 1; }
+}
+
+/* ---------- Illustration ---------- */
+
+.illustration-wrap {
   position: relative;
   width: 100%;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  line-height: 0;
+  aspect-ratio: 1024 / 1190;
+  margin-top: 6px;
+  perspective: 1000px;
 }
 
-.hero img {
-  width: 100%;
-  height: auto;
-}
-
-.hotspot {
+.scene-layer {
   position: absolute;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  transition: transform 0.7s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+
+.scene-layer.far { z-index: 1; }
+.scene-layer.near { z-index: 2; }
+
+svg#scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.pills-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  transition: transform 0.7s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+
+.pill {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  background: var(--pill-bg);
+  backdrop-filter: blur(6px);
+  padding: 13px 26px;
   border-radius: 999px;
-  padding: 0;
-  outline-offset: 4px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.6) inset,
+    0 14px 30px rgba(30,30,28,0.10),
+    0 2px 8px rgba(30,30,28,0.06),
+    0 0 26px rgba(255,255,255,0.55);
+  cursor: default;
+  transition: transform 220ms ease-out, box-shadow 220ms ease-out;
+  pointer-events: auto;
 }
 
-.hotspot:hover,
-.hotspot:focus-visible {
-  filter: brightness(0.94);
+.pill:hover {
+  transform: translate(-50%,-50%) translateY(-3px) scale(1.03);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.75) inset,
+    0 20px 40px rgba(30,30,28,0.14),
+    0 4px 12px rgba(30,30,28,0.08),
+    0 0 40px rgba(255,255,255,0.8);
 }
 
-.hotspot:focus-visible {
-  outline: 2px solid var(--ink);
+.pill.hub {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 17px 30px;
 }
 
-#hotspot-letsgo {
-  left: 13.2%;
-  top: 32.9%;
-  width: 15%;
-  height: 5.4%;
+.pill.is-interactive { cursor: pointer; }
+.pill.is-interactive:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.connector {
+  position: absolute;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(120,120,118,0.55), rgba(120,120,118,0));
+  z-index: 4;
+  pointer-events: none;
 }
 
-#hotspot-you {
-  left: 49%;
-  top: 47%;
-  width: 13%;
-  height: 6.2%;
+.connector .dot {
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  transform: translateX(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #3a3a38;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
 }
+
+footer.pad { height: 60px; }
 
 /* ---------- Modal ---------- */
 
@@ -598,17 +708,19 @@ section.block { padding: 44px 0; }
 
 @media (max-width: 860px) {
   .page { padding: 0 28px; }
+  .footer-band { margin: 0 -28px; }
+  .footer-band .page { padding: 0 28px; }
   header.top { padding-top: 28px; }
+  .hero h1 { font-size: 34px; }
   .you-hero h1 { font-size: 2.4rem; }
   .industries-grid { grid-template-columns: repeat(4, 1fr); }
   .timeline-row { grid-template-columns: repeat(2, 1fr); }
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-  #hotspot-letsgo { width: 22%; height: 4.6%; }
-  #hotspot-you { width: 19%; height: 5.2%; }
 }
 
 @media (max-width: 520px) {
   .tagline-wrap { max-width: none; }
+  .hero h1 { font-size: 28px; }
   .industries-grid { grid-template-columns: repeat(3, 1fr); }
   .timeline-row { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
