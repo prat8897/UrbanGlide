@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Urban Glide — We bring certainty to every move that matters</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Urban Glide is a B2B logistics partner that takes ownership across your supply chain — from origin to every destination that moves your business forward.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="icon-diamond" viewBox="0 0 24 24"><path d="M6 3h12l3 5-9 13L3 8l3-5z"/><path d="M3 8h18M9 3l3 5-3 13M15 3l-3 5 3 13"/></symbol>
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="icon-mouse" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="5"/><path d="M12 7v4"/></symbol>
+</svg>
+
+<div class="page">
+
+  <header class="top">
+    <div class="brand">
+      <p class="name">URBAN GLIDE</p>
+      <p class="sub">PRIVATE LIMITED</p>
+    </div>
+    <div class="tagline-wrap">
+      <div class="rule"></div>
+      <div class="tagline">
+        You are not short on transporters.<br>
+        You are short on <b>certainty</b>.
+      </div>
+    </div>
+  </header>
+  <hr class="divider">
+
+  <section class="hero">
+    <h1>We bring <b>certainty</b><br>to every move that matters.</h1>
+    <p>Urban Glide is a B2B logistics partner that takes ownership across your supply chain — from origin to every destination that moves your business forward.</p>
+    <div class="scroll-indicator">
+      <div class="label">SCROLL TO EXPLORE</div>
+      <div class="arrow">&#8595;</div>
+    </div>
+  </section>
+
+  <div class="illustration-wrap" id="illustrationWrap">
+    <div class="scene-layer far" id="layerFar">
+      <svg id="scene" viewBox="0 0 1024 1190" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6"/>
+          </filter>
+          <filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="2.4"/>
+          </filter>
+          <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+            <stop offset="60%" stop-color="#ffffff" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="platformShade" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- background wash -->
+        <rect x="0" y="0" width="1024" height="1190" fill="var(--bg)"/>
+
+        <g id="terrainGroup"></g>
+        <g id="treesFarGroup"></g>
+        <g id="roadsGroup"></g>
+        <g id="platformsGroup"></g>
+        <g id="buildingsGroup"></g>
+        <g id="treesNearGroup"></g>
+        <g id="hubGroup"></g>
+        <g id="planeGroup"></g>
+      </svg>
+    </div>
+
+    <div class="pills-layer" id="layerNear"></div>
+  </div>
+
+  <footer class="pad"></footer>
+</div>
+
+<div class="modal-overlay" id="who-modal" role="dialog" aria-modal="true" aria-labelledby="who-modal-title">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="modal-close" aria-label="Close">
+      <svg class="icon" width="20" height="20"><use href="#icon-close"></use></svg>
+    </button>
+    <h2 id="who-modal-title">Who are Urban Glide?</h2>
+    <div class="modal-rule"></div>
+    <p>Urban Glide Private Limited is a technology-powered logistics partner that helps businesses move goods with confidence. We combine a verified transporter network, intelligent matching, real-time visibility and process discipline to deliver predictable, safe and cost-efficient transportation across India and beyond.</p>
+    <p>From road to air and sea, from a single shipment to complex supply chains — we bring clarity, control and consistency to every move.</p>
+
+    <div class="modal-actions">
+      <a class="modal-btn" href="you.html">
+        <span class="icon-badge"><svg class="icon" width="18" height="18"><use href="#icon-shield"></use></svg></span>
+        <span class="label">Why should I trust you?</span>
+        <svg class="icon chevron" width="18" height="18"><use href="#icon-chevron-right"></use></svg>
+      </a>
+      <button type="button" class="modal-btn" id="why-different-btn">
+        <span class="icon-badge"><svg class="icon" width="18" height="18"><use href="#icon-diamond"></use></svg></span>
+        <span class="label">Why are you different?</span>
+        <svg class="icon chevron" width="18" height="18"><use href="#icon-chevron-right"></use></svg>
+      </button>
+    </div>
+
+    <div class="modal-hint">
+      <svg class="icon" width="15" height="15"><use href="#icon-mouse"></use></svg>
+      Hover over a question to explore
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/scene.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
