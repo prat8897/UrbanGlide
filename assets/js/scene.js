@@ -421,6 +421,15 @@
       pill.addEventListener('keydown', function(e){
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'you.html'; }
       });
+    } else if (pd.label === 'How') {
+      pill.classList.add('is-interactive');
+      pill.setAttribute('role', 'link');
+      pill.setAttribute('aria-label', 'How — the systems, network and people behind every move');
+      pill.tabIndex = 0;
+      pill.addEventListener('click', function(){ window.location.href = 'how.html'; });
+      pill.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'how.html'; }
+      });
     }
   });
 
