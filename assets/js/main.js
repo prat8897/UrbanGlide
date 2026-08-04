@@ -27,11 +27,4 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) window.closeWhoModal();
   });
-
-  var whyDifferent = document.getElementById('why-different-btn');
-  if (whyDifferent) {
-    whyDifferent.addEventListener('click', function () {
-      whyDifferent.classList.add('is-open-note');
-    });
-  }
 })();

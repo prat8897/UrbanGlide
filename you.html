@@ -2,274 +2,1412 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>You. — Urban Glide Private Limited</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Because the story is about you. Our clients, the industries we serve, and the BookMyShow case study that shows how Urban Glide delivers certainty.">
-<link rel="stylesheet" href="assets/css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Glide — You.</title>
+<meta name="description" content="Urban Glide Private Limited — because the story is about you, because our story is through you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   0. DESIGN TOKENS — shared visual language, carried forward from Page 1
+   ========================================================================== */
+:root{
+  /* colour palette — monochromatic, warm off-white, charcoal ink, olive accent */
+  --bg:            #f7f5f0;
+  --bg-soft:       #f2f0e9;
+  --bg-soft-2:     #efece4;
+  --white:         #ffffff;
+  --border:        #e7e3d8;
+  --border-strong: #d9d4c5;
+  --ink:           #242219;
+  --ink-soft:      #46443c;
+  --muted:         #5f5a4c;
+  --muted-soft:    #716a54;
+  --olive:         #6b6438;
+  --olive-dark:    #524c28;
+  --olive-tint:    #f2f0e6;
+  --road:          #333029;
+  --road-dark:     #2a2822;
+  --road-line:     #f4f1e8;
+  --mint:          #eaf6de;
+  --tick:          #6a9a53;
+
+  --shadow-sm: 0 1px 2px rgba(30,28,18,0.05), 0 1px 1px rgba(30,28,18,0.03);
+  --shadow-md: 0 10px 28px rgba(30,28,18,0.06);
+  --shadow-hover: 0 18px 40px rgba(30,28,18,0.10);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 22px;
+  --radius-full: 999px;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-pad: clamp(56px, 9vw, 128px);
+  --section-pad-tight: clamp(40px, 6vw, 80px);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+@media (prefers-color-scheme: dark){
+  /* Intentionally not implementing a dark theme — the brand system is
+     defined for a warm off-white surface. We keep light mode consistently
+     across devices rather than fork the visual language. */
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+}
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+img, svg{ display:block; max-width:100%; }
+a{ color: inherit; }
+button{ font-family: inherit; }
+
+.container{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* subtle architectural paper-grain texture, echoed across the whole page */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .5;
+  background-image:
+    radial-gradient(rgba(50,48,38,0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.visually-hidden{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+.eyebrow{
+  display:inline-block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 14px;
+}
+
+.section-title{
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* reveal-on-scroll utility -- fade gently upward, never bounce.
+   Progressive enhancement: elements are only hidden once JS confirms it can
+   reveal them again (via .js-reveal-ready on <html>). If JavaScript fails
+   to run, content simply stays visible -- nothing is ever permanently lost. */
+.reveal{ opacity: 1; transform: none; }
+html.js-reveal-ready .reveal{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  will-change: opacity, transform;
+}
+html.js-reveal-ready .reveal.in-view{
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  html.js-reveal-ready .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ==========================================================================
+   1. HEADER — identical language to Page 1
+   ========================================================================== */
+.site-header{
+  position: relative;
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: clamp(16px, 4vw, 40px);
+  padding-top: clamp(20px, 3vw, 30px);
+  padding-bottom: clamp(20px, 3vw, 30px);
+  flex-wrap: wrap;
+}
+.logo{
+  display:flex;
+  flex-direction:column;
+  gap: 4px;
+  line-height: 1;
+}
+.logo .wordmark{
+  font-size: clamp(20px, 2.6vw, 26px);
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.logo .subline{
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .32em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.header-claim{
+  display:flex;
+  align-items:stretch;
+  gap: clamp(12px, 2vw, 20px);
+  text-align:left;
+}
+.header-claim .rule{
+  width:1px;
+  background: var(--border-strong);
+  flex-shrink:0;
+}
+.header-claim p{
+  margin:0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.header-claim strong{
+  color: var(--olive);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   2. HERO
+   ========================================================================== */
+.hero{
+  padding-top: clamp(56px, 9vw, 96px);
+  padding-bottom: clamp(40px, 6vw, 64px);
+  position: relative;
+  z-index:1;
+}
+.hero h1{
+  margin: 0;
+  font-size: clamp(64px, 13vw, 132px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: .92;
+  color: var(--olive);
+}
+.hero-copy{
+  margin-top: clamp(18px, 3vw, 28px);
+  max-width: 520px;
+}
+.hero-copy p{
+  margin: 0 0 6px;
+  font-size: clamp(16px, 1.7vw, 19px);
+  color: var(--ink-soft);
+}
+.hero-rule{
+  margin-top: clamp(28px, 4vw, 44px);
+  width: 44px;
+  height: 2px;
+  background: var(--border-strong);
+  border: none;
+}
+
+/* ==========================================================================
+   3. OUR CLIENTS
+   ========================================================================== */
+.clients{
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+  position: relative;
+  z-index: 1;
+}
+.clients-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  margin-bottom: 22px;
+}
+.clients-rail{
+  position: relative;
+}
+.clients-track{
+  display:flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding: 4px 2px 6px;
+  margin: 0 -2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.clients-track::-webkit-scrollbar{ display:none; }
+
+.client-card{
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: clamp(190px, 22vw, 236px);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease);
+  display:flex;
+  flex-direction:column;
+  min-height: 232px;
+}
+.client-card:hover, .client-card:focus-within{
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+}
+.client-logo{
+  height: 30px;
+  display:flex;
+  align-items:center;
+  margin-bottom: 18px;
+}
+.client-meta{ margin-top: auto; }
+.client-meta .label{
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  margin: 0 0 3px;
+}
+.client-meta .value{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+.client-km{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.client-km svg{ color: var(--olive); flex-shrink:0; }
+
+/* client logotypes — stylised text marks (prototype-safe, brand-adjacent) */
+.mark{ font-weight:800; font-size:19px; letter-spacing:-.01em; display:flex; align-items:center; gap:2px; }
+.mark-bookmyshow{ color:#1c1c1c; }
+.mark-bookmyshow .accent{ color:#e0273e; }
+.mark-dmart{ color:#e0273e; font-style:normal; }
+.mark-dmart .dot{ color:#1c1c1c; }
+.mark-spectrum{ color:#1c2b4d; display:flex; align-items:center; gap:6px; }
+.mark-spectrum .tri{ width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:14px solid #d94f2b; }
+.mark-laxmi{ color:#2f7a3c; font-style: italic; font-weight:700; }
+.mark-balaji{ color:#1c2b4d; }
+.mark-balaji .accent{ color:#c0392b; }
+.mark-nts{ color:#2f7a45; letter-spacing:.02em; }
+.mark-ultron{ color:#1c2b4d; letter-spacing:.04em; font-size:17px; }
+.mark-ultron .sub{ display:block; font-size:8px; letter-spacing:.3em; color:var(--muted); font-weight:700; margin-top:1px; }
+
+.rail-next{
+  position:absolute;
+  right: -6px;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color: var(--ink);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+}
+.rail-next:hover{ box-shadow: var(--shadow-hover); background: var(--olive-tint); }
+.rail-next:active{ transform: translateY(-50%) scale(.94); }
+.rail-next:focus-visible{ outline: 2px solid var(--olive); outline-offset: 3px; }
+
+.rail-progress{
+  margin: 20px auto 0;
+  width: 120px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--border);
+  overflow:hidden;
+}
+.rail-progress-thumb{
+  height:100%;
+  width: 30%;
+  background: var(--olive);
+  border-radius: var(--radius-full);
+  transition: transform .25s linear;
+  transform-origin: left center;
+}
+
+/* ==========================================================================
+   4. INDUSTRIES WE SERVE
+   ========================================================================== */
+.industries{
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+  position: relative;
+  z-index:1;
+}
+.industries-grid{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.industry-cell{
+  background: var(--white);
+  padding: clamp(16px,2vw,22px) 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap: 14px;
+  transition: background .35s var(--ease);
+  min-height: 108px;
+}
+.industry-cell:hover{ background: var(--olive-tint); }
+.industry-cell svg{ color: var(--ink); flex-shrink:0; }
+.industry-cell span{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+@media (max-width: 980px){
+  .industries-grid{ grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 620px){
+  .industries-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==========================================================================
+   5. CASE STUDY — the journey
+   ========================================================================== */
+.case-study{
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.case-decor{
+  position:absolute;
+  top: -20px;
+  right: -40px;
+  width: min(560px, 55vw);
+  opacity: .5;
+  color: var(--olive);
+  pointer-events:none;
+  z-index:0;
+}
+.case-head{
+  position: relative;
+  z-index:1;
+  margin-bottom: clamp(36px, 6vw, 64px);
+}
+.case-head .case-title-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom: 14px;
+}
+.case-head h2{
+  margin:0;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.case-sub{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+  max-width: 460px;
+  color: var(--muted);
+}
+.case-sub svg{ margin-top:3px; color: var(--ink-soft); flex-shrink:0; }
+.case-sub p{ margin:0 0 4px; font-size:14.5px; line-height:1.6; }
+
+.journey-wrap{
+  position: relative;
+  z-index: 1;
+}
+.journey-road{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+  overflow: visible;
+}
+.journey-road .road-bg{
+  fill:none;
+  stroke: var(--road);
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.journey-road .road-line{
+  fill:none;
+  stroke: var(--road-line);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 7 11;
+}
+.journey-road .road-waypoint{
+  fill: var(--olive);
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+}
+.journey-road .road-waypoint.lit{ opacity: 1; }
+
+.journey{
+  position: relative;
+  z-index: 1;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: clamp(14px, 2.4vw, 30px);
+  row-gap: clamp(56px, 8vw, 92px);
+  padding: clamp(30px,5vw,54px) 0;
+}
+.journey-row-1{ grid-row: 1; }
+.journey-row-2{ grid-row: 2; }
+/* visually reverse the return row (5→8 travel right-to-left) while keeping
+   1..8 as the natural DOM / reading order for assistive tech */
+.stop[data-stop="5"]{ grid-column: 4; }
+.stop[data-stop="6"]{ grid-column: 3; }
+.stop[data-stop="7"]{ grid-column: 2; }
+.stop[data-stop="8"]{ grid-column: 1; }
+
+.stop{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+.stop-icon{
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--olive);
+  margin-bottom: 18px;
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.stop.in-view .stop-icon{ transform: scale(1.04); }
+.stop:hover .stop-icon{ box-shadow: var(--shadow-hover); }
+.stop-index{
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--olive);
+  margin: 0 0 4px;
+}
+.stop-title{
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.stop-desc{
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  max-width: 240px;
+}
+.stop-desc + .stop-desc{ margin-top: 2px; }
+
+.renewal-loop{
+  position:absolute;
+  left: -6px;
+  bottom: -34px;
+  color: var(--muted-soft);
+  z-index:0;
+}
+html.js-reveal-ready .renewal-loop{
+  opacity: 0;
+  transition: opacity .6s var(--ease) .2s;
+}
+html.js-reveal-ready .renewal-loop.in-view{ opacity: 1; }
+
+.result-banner{
+  margin-top: clamp(30px, 5vw, 48px);
+  display:flex;
+  align-items:center;
+  gap: 16px;
+  background: var(--bg-soft-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px clamp(20px, 3vw, 32px);
+}
+.result-banner svg{ color: var(--olive); flex-shrink:0; }
+.result-banner p{
+  margin:0;
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
+.result-banner strong{ color: var(--ink); font-weight:700; }
+
+@media (max-width: 900px){
+  .journey{ grid-template-columns: repeat(2, 1fr); row-gap: clamp(44px,7vw,64px); }
+  .stop[data-stop="5"]{ grid-column: auto; }
+  .stop[data-stop="6"]{ grid-column: auto; }
+  .stop[data-stop="7"]{ grid-column: auto; }
+  .stop[data-stop="8"]{ grid-column: auto; }
+}
+@media (max-width: 600px){
+  .journey{ grid-template-columns: 1fr; row-gap: 46px; padding-left: 8px; }
+  .journey-road .road-bg{ stroke-width: 3.5; }
+  .journey-road .road-line{ stroke-width: 1.4; stroke-dasharray: 5 8; }
+  .stop-icon{ width:52px; height:52px; }
+}
+
+/* ==========================================================================
+   6. TESTIMONIALS
+   ========================================================================== */
+.testimonials{
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+  position: relative;
+  z-index:1;
+}
+.testi-head{ margin-bottom: 24px; }
+.testi-track{
+  display:flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding: 10px 2px 8px;
+  margin: 0 -2px;
+  scrollbar-width: none;
+}
+.testi-track::-webkit-scrollbar{ display:none; }
+
+.testi-card{
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: clamp(210px, 24vw, 250px);
+  background: var(--bg-soft-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 16px 16px;
+  position: relative;
+}
+.testi-quote{
+  position:absolute;
+  top: -16px;
+  left: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--olive-dark);
+  color: var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+}
+.testi-bubble{
+  background: var(--mint);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+}
+.testi-bubble p{
+  margin: 0 0 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.testi-meta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--muted-soft);
+}
+.testi-meta svg{ color: var(--tick); }
+
+.testi-dots{
+  display:flex;
+  justify-content:center;
+  gap: 8px;
+  margin-top: 22px;
+}
+.testi-dots button{
+  width: 7px; height: 7px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--border-strong);
+  padding: 0;
+  cursor: pointer;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.testi-dots button[aria-current="true"]{ background: var(--olive); transform: scale(1.2); }
+.testi-dots button:focus-visible{ outline: 2px solid var(--olive); outline-offset: 3px; }
+
+/* ==========================================================================
+   7. CLOSING STATEMENT
+   ========================================================================== */
+.closing{
+  padding-top: var(--section-pad-tight);
+  padding-bottom: clamp(72px, 10vw, 128px);
+  position: relative;
+  z-index:1;
+}
+.closing-banner{
+  display:flex;
+  align-items:center;
+  gap: 18px;
+  background: var(--bg-soft-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px,3vw,28px) clamp(22px,4vw,36px);
+}
+.closing-banner svg{ color: var(--olive); flex-shrink:0; }
+.closing-banner p{
+  margin: 0;
+  font-size: clamp(14.5px, 1.6vw, 17px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.closing-banner strong{ color: var(--olive-dark); font-weight: 700; }
+
+@media (max-width: 560px){
+  .closing-banner{ flex-direction:column; align-items:flex-start; text-align:left; }
+}
+
+/* ==========================================================================
+   8. RESPONSIVE HEADER / HERO refinements
+   ========================================================================== */
+@media (max-width: 760px){
+  .header-inner{ flex-direction:column; align-items:flex-start; gap:16px; }
+  .header-claim{ padding-left: 0; }
+  .header-claim p{ white-space: normal; }
+}
+@media (max-width: 480px){
+  .client-card{ width: 78vw; }
+  .testi-card{ width: 78vw; }
+}
+
+/* Ultra-wide displays: cap visual density, keep architectural breathing room */
+@media (min-width: 1800px){
+  :root{ --container: 1440px; }
+  .hero h1{ font-size: 148px; }
+}
+</style>
 </head>
 <body>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-  <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
-  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.6 7-12a7 7 0 10-14 0c0 5.4 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></symbol>
-  <symbol id="icon-trophy" viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M7 5H4a3 3 0 003 4M17 5h3a3 3 0 01-3 4"/><path d="M12 13v4M9 21h6M8 21c0-2 1.5-3 4-3s4 1 4 3"/></symbol>
-  <symbol id="icon-handshake" viewBox="0 0 24 24"><path d="M2 12l4-4 4 3 3-3 2 2M2 12v4l3 3M22 12l-4-4-3 3M22 12v4l-3 3"/><path d="M10 11l3 3-2 2-3-3M13 8l3 3-2 2"/></symbol>
-  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2C9.5 21 3 14.5 3 6a2 2 0 012-2z"/></symbol>
-  <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
-  <symbol id="icon-clipboard" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></symbol>
-  <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18h.01"/></symbol>
-  <symbol id="icon-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.5 10.9c.6.5.9 1.2.9 2.1h5.2c0-.9.3-1.6.9-2.1A6 6 0 0012 3z"/></symbol>
-  <symbol id="icon-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M15 14h3"/></symbol>
-  <symbol id="icon-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
-  <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M5 14a8 8 0 0013.9 3M19 10A8 8 0 005.1 7"/></symbol>
-  <symbol id="icon-plane" viewBox="0 0 24 24"><path d="M10 21l2-6 8-5-1-2-9 3-4-3-2 1 3 4-1 6 2 1 2-4z"/></symbol>
-  <symbol id="icon-pill" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(45 12 12)"/><path d="M9 9l6 6"/></symbol>
-  <symbol id="icon-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 4h2l2.4 12.5A2 2 0 009.4 18h7.2a2 2 0 002-1.6L20 8H6"/></symbol>
-  <symbol id="icon-clapper" viewBox="0 0 24 24"><path d="M3 9l1-4 16 3-1 4z"/><rect x="3" y="9" width="18" height="11" rx="1"/><path d="M6 5l3 4M11 5l3 4M16 5l3 4"/></symbol>
-  <symbol id="icon-factory" viewBox="0 0 24 24"><path d="M3 21V11l5 3v-3l5 3V8l6 3v10z"/><path d="M3 21h18"/></symbol>
-  <symbol id="icon-wrench" viewBox="0 0 24 24"><path d="M14 7a4 4 0 015 5l-7 7-2-2 7-7a4 4 0 01-5-5l3-3 2 2-3 3z"/><path d="M4 20l4-4"/></symbol>
-  <symbol id="icon-drum" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12a7 3 0 0014 0V6"/><path d="M5 12a7 3 0 0014 0"/></symbol>
-  <symbol id="icon-car" viewBox="0 0 24 24"><path d="M4 16l1.5-5A2 2 0 017.4 9.5h9.2A2 2 0 0118.5 11L20 16"/><rect x="3" y="16" width="18" height="4" rx="1"/><circle cx="7.5" cy="20" r="1.4"/><circle cx="16.5" cy="20" r="1.4"/></symbol>
-  <symbol id="icon-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M3 10h3M3 14h3M18 10h3M18 14h3M10 3v3M14 3v3M10 18v3M14 18v3"/></symbol>
-  <symbol id="icon-shirt" viewBox="0 0 24 24"><path d="M8 4L4 7l2 3 2-1v11h8V9l2 1 2-3-4-3-2 2h-4L8 4z"/></symbol>
-  <symbol id="icon-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 19h18"/></symbol>
-  <symbol id="icon-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 001.7 3h11.6a2 2 0 001.7-3L14 9V3"/><path d="M7.5 15h9"/></symbol>
-  <symbol id="icon-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/></symbol>
-  <symbol id="icon-quote" viewBox="0 0 24 24"><path d="M7 8c-2 0-3 1.5-3 3.5S5 15 7 15c-.3 2-1.5 3-3.5 3.5V20c3.5-.3 5.5-2.5 5.5-6V11c0-2-1-3-2-3zM17 8c-2 0-3 1.5-3 3.5S15 15 17 15c-.3 2-1.5 3-3.5 3.5V20c3.5-.3 5.5-2.5 5.5-6V11c0-2-1-3-2-3z"/></symbol>
-</svg>
-
-<div class="page">
-
-  <header class="top">
-    <div class="brand">
-      <a href="index.html" style="display:block">
-        <p class="name">URBAN GLIDE</p>
-        <p class="sub">PRIVATE LIMITED</p>
-      </a>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="logo">
+      <span class="wordmark">URBAN GLIDE</span>
+      <span class="subline">PRIVATE LIMITED</span>
     </div>
-    <div class="tagline-wrap">
-      <div class="rule"></div>
-      <div class="tagline">
-        You are not short on transporters.<br>
-        You are short on <b>certainty</b>.
+    <div class="header-claim">
+      <hr class="rule" aria-hidden="true">
+      <div>
+        <p>You are not short on transporters.</p>
+        <p>You are short on <strong>certainty</strong>.</p>
       </div>
     </div>
-  </header>
-  <hr class="divider">
+  </div>
+</header>
 
-  <main>
-    <div class="you-hero">
-      <h1>You.</h1>
-      <p class="lede">Because the story is about you.<br>Because our story is through you.</p>
-      <div class="rule"></div>
+<main>
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero container" aria-label="Introduction">
+    <h1>You.</h1>
+    <div class="hero-copy">
+      <p>Because the story is about you.</p>
+      <p>Because our story is through you.</p>
+    </div>
+    <hr class="hero-rule" aria-hidden="true">
+  </section>
+
+  <!-- ========================= OUR CLIENTS ========================= -->
+  <section class="clients container" id="clients" aria-labelledby="clients-heading">
+    <div class="clients-head">
+      <h2 class="eyebrow" id="clients-heading" style="margin-bottom:0;">Our Clients</h2>
     </div>
 
-    <!-- Clients -->
-    <section class="block">
-      <div class="eyebrow">Our Clients</div>
-      <div class="clients-row">
-        <div class="clients-track" id="clients-track">
+    <div class="clients-rail">
+      <div class="clients-track" id="clientsTrack" tabindex="0" role="group" aria-label="Client list, scrollable">
 
-          <article class="client-card">
-            <div class="brand" style="color:#d3202f">bookmyshow</div>
-            <div class="sector">Entertainment</div>
-            <div class="cargo">Event &amp; Exhibition Materials</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>12,500+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-bookmyshow">book<span class="accent">my</span>show</span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Entertainment</p>
+            <p class="label">Transports</p>
+            <p class="value">Event &amp; Exhibition Materials</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            12,500+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#0a8a3e">D•Mart</div>
-            <div class="sector">Retail &amp; Supermarkets</div>
-            <div class="cargo">General Merchandise &amp; FMCG</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>18,200+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-dmart">D<span class="dot">Mart</span></span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Retail &amp; Supermarkets</p>
+            <p class="label">Transports</p>
+            <p class="value">General Merchandise &amp; FMCG</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            18,200+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#c0272d">▲ SPECTRUM</div>
-            <div class="sector">Electrical &amp; Industrial Manufacturing</div>
-            <div class="cargo">Industrial Electrical &amp; Engineering Goods</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>16,800+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-spectrum"><span class="tri" aria-hidden="true"></span>SPECTRUM</span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Electrical &amp; Industrial Manufacturing</p>
+            <p class="label">Transports</p>
+            <p class="value">Industrial Electrical &amp; Engineering Goods</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            16,800+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#1a4fa3">Laxmi</div>
-            <div class="sector">Speciality Chemicals</div>
-            <div class="cargo">Chemical Raw Materials</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>14,600+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-laxmi">Laxmi</span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Speciality Chemicals</p>
+            <p class="label">Transports</p>
+            <p class="value">Chemical Raw Materials</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            14,600+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#c0272d">BALAJI</div>
-            <div class="sector">Industrial Equipment &amp; Water Treatment</div>
-            <div class="cargo">Fiberglass Products &amp; Components</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>15,300+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-balaji">B<span class="accent">A</span>LAJI</span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Industrial Equipment &amp; Water Treatment</p>
+            <p class="label">Transports</p>
+            <p class="value">Fiberglass Products &amp; Components</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            15,300+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#0a8a3e">NTS</div>
-            <div class="sector">National Technology Services</div>
-            <div class="cargo">Technical Services &amp; Solutions</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>11,700+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-nts">NTS</span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">National Technology Services</p>
+            <p class="label">Transports</p>
+            <p class="value">Technical Services &amp; Solutions</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            11,700+ km
+          </div>
+        </article>
 
-          <article class="client-card">
-            <div class="brand" style="color:#1a4fa3">ULTRON</div>
-            <div class="sector">Chemical Storage &amp; Process Equipment</div>
-            <div class="cargo">Tanks, Vessels &amp; Process Equipment</div>
-            <div class="distance"><svg class="icon" width="14" height="14"><use href="#icon-pin"></use></svg>17,900+ km</div>
-          </article>
+        <article class="client-card reveal">
+          <div class="client-logo">
+            <span class="mark mark-ultron">ULTRON<span class="sub">INDUSTRY</span></span>
+          </div>
+          <div class="client-meta">
+            <p class="label">Industry</p>
+            <p class="value">Chemical Storage &amp; Process Equipment</p>
+            <p class="label">Transports</p>
+            <p class="value">Tanks, Vessels &amp; Process Equipment</p>
+          </div>
+          <div class="client-km">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            17,900+ km
+          </div>
+        </article>
 
-        </div>
-        <button class="carousel-btn" id="clients-next" aria-label="Next clients">
-          <svg class="icon" width="16" height="16"><use href="#icon-chevron-right"></use></svg>
-        </button>
-      </div>
-    </section>
-
-    <!-- Industries -->
-    <section class="block">
-      <div class="eyebrow">Industries We Serve</div>
-      <div class="industries-panel">
-        <div class="industries-grid">
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-plane"></use></svg></span>Aviation</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-pill"></use></svg></span>Pharmaceuticals</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-cart"></use></svg></span>E-commerce &amp; Retail</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-clapper"></use></svg></span>Media &amp; Entertainment</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-factory"></use></svg></span>Manufacturing</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-wrench"></use></svg></span>Engineering</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-drum"></use></svg></span>Oil &amp; Energy</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-car"></use></svg></span>Automotive</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-cpu"></use></svg></span>Electronics</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-shirt"></use></svg></span>FMCG</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-shirt"></use></svg></span>Fashion &amp; Apparel</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-bank"></use></svg></span>Government &amp; Public Sector</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-flask"></use></svg></span>Chemicals</div>
-          <div class="industry"><span class="icon-circle"><svg class="icon" width="20" height="20"><use href="#icon-dots"></use></svg></span>...and many more</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Case study -->
-    <section class="block">
-      <div class="eyebrow">Case Study</div>
-      <div class="case-study-head">
-        <h3>BookMyShow</h3>
-      </div>
-      <div class="case-note">
-        <svg class="icon" width="16" height="16" style="flex:none;margin-top:2px"><use href="#icon-alert"></use></svg>
-        <p>A mission-critical logistics execution across India.<br>One deadline. Multiple challenges. Zero missed windows.</p>
-      </div>
-
-      <div class="timeline-row">
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-phone"></use></svg></span>
-          <div class="step-num">01</div>
-          <h4>Inquiry</h4>
-          <p>BookMyShow reached out for urgent event logistics across multiple cities. Fixed event dates. Zero room for delay.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-search"></use></svg></span>
-          <div class="step-num">02</div>
-          <h4>Understanding</h4>
-          <p>We captured every detail — locations, timelines, materials, access, dependencies and potential risks.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-clipboard"></use></svg></span>
-          <div class="step-num">03</div>
-          <h4>Planning</h4>
-          <p>Routes, vehicles and partners planned for each sector. Backups and contingencies built in.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-alert"></use></svg></span>
-          <div class="step-num">04</div>
-          <h4>Challenges</h4>
-          <p>No trucks on critical points. Airport coordination delays. Emergency additional shipments. Difficult terrain in Shillong.</p>
-        </div>
       </div>
 
-      <div class="timeline-row">
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-handshake"></use></svg></span>
-          <div class="step-num">08</div>
-          <h4>Renewal</h4>
-          <p>The client trusted us with the next contract. A partnership that continues today.</p>
+      <button class="rail-next" id="clientsNext" aria-label="Scroll to next client">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="rail-progress" aria-hidden="true">
+      <div class="rail-progress-thumb" id="clientsProgress"></div>
+    </div>
+  </section>
+
+  <!-- ====================== INDUSTRIES WE SERVE ====================== -->
+  <section class="industries container" id="industries" aria-labelledby="industries-heading">
+    <h2 class="eyebrow" id="industries-heading">Industries We Serve</h2>
+
+    <div class="industries-grid">
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5a1.5 1.5 0 0 0-2.1-2.1L14 8.9 5.8 7.1a1 1 0 0 0-.98 1.66l4.94 3.71-1.2 1.2-2.5-.3-1 1 3 1.5 1.5 3 1-1-.3-2.5 1.2-1.2 3.71 4.94a1 1 0 0 0 1.66-.98Z"/></svg>
+        <span>Aviation</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="4" width="8" height="17" rx="2"/><path d="M8 10h8"/><circle cx="12" cy="15" r="1.6"/></svg>
+        <span>Pharmaceuticals</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3h2.4L8 15h10l3-8.5H6.2"/></svg>
+        <span>E-commerce &amp; Retail</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h13l4-3v10l-4-3"/><rect x="3" y="9" width="13" height="9" rx="1.4"/></svg>
+        <span>Media &amp; Entertainment</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3V11l5 3V8l6 4v8Z"/><path d="M3 20h18"/></svg>
+        <span>Manufacturing</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4L21 6l-3-3-3.3 3.3Z"/></svg>
+        <span>Engineering</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l-1 4h2l-7 9 1.5-6H8Z"/><rect x="6" y="14" width="12" height="7" rx="1.4"/></svg>
+        <span>Oil &amp; Energy</span>
+      </div>
+
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="10" width="14" height="6" rx="1"/><path d="M16 12h3.5L21 15v1h-5"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg>
+        <span>Automotive</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <span>Electronics</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c3-4 7-6 10-4 2 1.3 2.5 3.6 1 5.4-1.8 2.1-5 1.7-6-1"/><path d="M4 12c1.6-.4 3-.2 4 1"/></svg>
+        <span>FMCG</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2.2 2.2 0 0 0-2.2 2.2c0 .5.2 1 .5 1.3L4 10.5v9.5h16v-9.5l-6.3-4a2 2 0 0 0 .5-1.3A2.2 2.2 0 0 0 12 3Z"/></svg>
+        <span>Fashion &amp; Apparel</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9"/><path d="M3 19h18"/></svg>
+        <span>Government &amp; Public Sector</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4M11 3v5.5L6.5 17a2 2 0 0 0 1.8 3h7.4a2 2 0 0 0 1.8-3L13 8.5V3"/><path d="M8.5 14h7"/></svg>
+        <span>Chemicals</span>
+      </div>
+      <div class="industry-cell reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.4" cy="12" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r=".6" fill="currentColor" stroke="none"/><circle cx="15.6" cy="12" r=".6" fill="currentColor" stroke="none"/></svg>
+        <span>...and many more</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CASE STUDY ========================== -->
+  <section class="case-study" id="case-study" aria-labelledby="case-study-heading">
+    <div class="container">
+
+      <svg class="case-decor" viewBox="0 0 500 260" fill="none" aria-hidden="true">
+        <path d="M20 40c60 10 90 60 150 55s70-70 140-55 100 90 170 60" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 8" opacity="0.5"/>
+        <circle cx="170" cy="95" r="4" fill="currentColor" opacity="0.35"/>
+        <circle cx="330" cy="60" r="4" fill="currentColor" opacity="0.35"/>
+        <path d="M430 95c0 12-14 26-14 26s-14-14-14-26a14 14 0 1 1 28 0Z" stroke="currentColor" stroke-width="1.4" opacity="0.4"/>
+        <path d="M120 150c0 12-14 26-14 26s-14-14-14-26a14 14 0 1 1 28 0Z" stroke="currentColor" stroke-width="1.4" opacity="0.3"/>
+      </svg>
+
+      <div class="case-head">
+        <p class="eyebrow" id="case-study-heading" style="margin-bottom:14px;">Case Study</p>
+        <div class="case-title-row">
+          <h2>BookMyShow</h2>
         </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-check"></use></svg></span>
-          <div class="step-num">07</div>
-          <h4>Outcome</h4>
-          <p>All shipments delivered on time. Emergency requests handled successfully. Scope expanded.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-wallet"></use></svg></span>
-          <div class="step-num">06</div>
-          <h4>We Paid to Deliver</h4>
-          <p>We paid out of our own pocket for cab movements and extra costs — because the event deadline mattered more.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="step-icon"><svg class="icon" width="18" height="18"><use href="#icon-lightbulb"></use></svg></span>
-          <div class="step-num">05</div>
-          <h4>Our Decisions</h4>
-          <p>Used cabs where trucks weren't available. Coordinated directly with airport cargo terminals. Activated backup partners instantly.</p>
+        <div class="case-sub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <div>
+            <p>A mission-critical logistics execution across India.</p>
+            <p>One deadline. Multiple challenges. Zero missed windows.</p>
+          </div>
         </div>
       </div>
 
-      <div class="trophy-note">
-        <svg class="icon" width="20" height="20" style="flex:none"><use href="#icon-trophy"></use></svg>
-        <p>The result: a partnership built on <strong>reliability</strong>, not just transactions.</p>
+      <div class="journey-wrap" id="journeyWrap">
+        <svg class="journey-road" id="journeyRoad" aria-hidden="true">
+          <path class="road-bg" id="roadBg" d=""></path>
+          <path class="road-line" id="roadLine" d=""></path>
+          <circle class="road-waypoint" id="wp-1-2" r="4"></circle>
+          <circle class="road-waypoint" id="wp-2-3" r="4"></circle>
+          <circle class="road-waypoint" id="wp-3-4" r="4"></circle>
+          <circle class="road-waypoint" id="wp-4-5" r="4"></circle>
+          <circle class="road-waypoint" id="wp-5-6" r="4"></circle>
+          <circle class="road-waypoint" id="wp-6-7" r="4"></circle>
+          <circle class="road-waypoint" id="wp-7-8" r="4"></circle>
+        </svg>
+
+        <ol class="journey" id="journeyList">
+
+          <li class="stop journey-row-1 reveal" data-stop="1" style="--i:0;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.9.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2Z"/></svg>
+            </span>
+            <p class="stop-index">01</p>
+            <h3 class="stop-title">Inquiry</h3>
+            <p class="stop-desc">BookMyShow reached out for urgent event logistics across multiple cities.</p>
+            <p class="stop-desc">Fixed event dates. Zero room for delay.</p>
+          </li>
+
+          <li class="stop journey-row-1 reveal" data-stop="2" style="--i:1;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </span>
+            <p class="stop-index">02</p>
+            <h3 class="stop-title">Understanding</h3>
+            <p class="stop-desc">We captured every detail — locations, timelines, materials, access, dependencies and potential risks.</p>
+          </li>
+
+          <li class="stop journey-row-1 reveal" data-stop="3" style="--i:2;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.6"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M9 11h6M9 15h6M9 7h6"/></svg>
+            </span>
+            <p class="stop-index">03</p>
+            <h3 class="stop-title">Planning</h3>
+            <p class="stop-desc">Routes, vehicles and partners planned for each sector.</p>
+            <p class="stop-desc">Backups and contingencies built in.</p>
+          </li>
+
+          <li class="stop journey-row-1 reveal" data-stop="4" style="--i:3;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2 20h20L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 10v4M12 17.5v.1"/></svg>
+            </span>
+            <p class="stop-index">04</p>
+            <h3 class="stop-title">Challenges</h3>
+            <p class="stop-desc">No trucks on critical points. Airport coordination delays.</p>
+            <p class="stop-desc">Emergency additional shipments. Difficult terrain in Shillong.</p>
+          </li>
+
+          <li class="stop journey-row-2 reveal" data-stop="5" style="--i:4;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1.1 2h5c.1-.8.5-1.5 1.1-2A6 6 0 0 0 12 3Z"/></svg>
+            </span>
+            <p class="stop-index">05</p>
+            <h3 class="stop-title">Our Decisions</h3>
+            <p class="stop-desc">Used cabs where trucks weren't available. Coordinated directly with airport cargo terminals.</p>
+            <p class="stop-desc">Activated backup partners instantly.</p>
+          </li>
+
+          <li class="stop journey-row-2 reveal" data-stop="6" style="--i:5;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19"/><circle cx="17.5" cy="14.5" r="1.4"/></svg>
+            </span>
+            <p class="stop-index">06</p>
+            <h3 class="stop-title">We Paid to Deliver</h3>
+            <p class="stop-desc">We paid out of our own pocket for cab movements and extra costs — because the event deadline mattered more.</p>
+          </li>
+
+          <li class="stop journey-row-2 reveal" data-stop="7" style="--i:6;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 7"/></svg>
+            </span>
+            <p class="stop-index">07</p>
+            <h3 class="stop-title">Outcome</h3>
+            <p class="stop-desc">All shipments delivered on time.</p>
+            <p class="stop-desc">Emergency requests handled successfully. Scope expanded.</p>
+          </li>
+
+          <li class="stop journey-row-2 reveal" data-stop="8" style="--i:7;">
+            <span class="stop-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12.5h4l3-2 3.5 2.3a1.4 1.4 0 0 1-1.5 2.3L8 13.5"/><path d="M9 10.5l2.8-2.3a2 2 0 0 1 2.5 0L18 11l4-2.5"/><path d="M22 9v6l-4 2.5-3-2"/><path d="M2 9v6l4 2.5"/></svg>
+            </span>
+            <p class="stop-index">08</p>
+            <h3 class="stop-title">Renewal</h3>
+            <p class="stop-desc">The client trusted us with the next contract.</p>
+            <p class="stop-desc">A partnership that continues today.</p>
+
+            <svg class="renewal-loop" id="renewalLoop" width="46" height="30" viewBox="0 0 46 30" fill="none" aria-hidden="true">
+              <path d="M44 6C34 2 18 2 9 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M14 6.5 8.5 10l1 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </li>
+
+        </ol>
       </div>
-    </section>
 
-    <!-- Testimonials -->
-    <section class="block">
-      <div class="eyebrow">Testimonials</div>
-      <div class="testimonials-grid">
-        <div class="testimonial">
-          <svg class="icon quote-icon" width="18" height="18"><use href="#icon-quote"></use></svg>
-          <p class="msg">Kushal and team were superb. Everything reached on time and the event went smoothly. Really appreciate your support!</p>
-          <div class="meta">11:32 AM <svg class="icon" width="13" height="13"><use href="#icon-dots"></use></svg></div>
-        </div>
-        <div class="testimonial">
-          <svg class="icon quote-icon" width="18" height="18"><use href="#icon-quote"></use></svg>
-          <p class="msg">Thanks for handling the last-minute changes so well. The team was extremely professional and responsive.</p>
-          <div class="meta">3:45 PM <svg class="icon" width="13" height="13"><use href="#icon-dots"></use></svg></div>
-        </div>
-        <div class="testimonial">
-          <svg class="icon quote-icon" width="18" height="18"><use href="#icon-quote"></use></svg>
-          <p class="msg">You guys are now our go-to logistics partner for all India events. Great work!</p>
-          <div class="meta">6:20 PM <svg class="icon" width="13" height="13"><use href="#icon-dots"></use></svg></div>
-        </div>
-        <div class="testimonial">
-          <svg class="icon quote-icon" width="18" height="18"><use href="#icon-quote"></use></svg>
-          <p class="msg">Perfect execution once again. No delays, no excuses – that's what we value.</p>
-          <div class="meta">9:10 PM <svg class="icon" width="13" height="13"><use href="#icon-dots"></use></svg></div>
-        </div>
+      <div class="result-banner reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v4a4 4 0 0 1-8 0V3Z"/><path d="M8 4H4v2a4 4 0 0 0 4 4M16 4h4v2a4 4 0 0 1-4 4"/><path d="M12 12v4M9 21h6M9.5 17h5l.5 4h-6l.5-4Z"/></svg>
+        <p>The result: a partnership built on <strong>reliability</strong>, not just <strong>transactions</strong>.</p>
       </div>
-      <div class="dots"><span class="active"></span><span></span><span></span></div>
-    </section>
 
-    <footer class="footer-band">
-      <span class="icon-circle"><svg class="icon" width="22" height="22"><use href="#icon-handshake"></use></svg></span>
-      <p>At Urban Glide, we don't just move goods.<br>We take responsibility for <strong>outcomes that matter to you</strong>.</p>
-    </footer>
-  </main>
+    </div>
+  </section>
 
-</div>
+  <!-- ========================== TESTIMONIALS ========================== -->
+  <section class="testimonials container" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="testi-head">
+      <h2 class="eyebrow" id="testimonials-heading" style="margin-bottom:0;">Testimonials</h2>
+    </div>
+
+    <div class="testi-track" id="testiTrack" tabindex="0" role="group" aria-label="Client testimonials, scrollable">
+
+      <figure class="testi-card reveal">
+        <span class="testi-quote" aria-hidden="true">&rdquo;</span>
+        <div class="testi-bubble">
+          <p>Kushal and team were superb. Everything reached on time and the event went smoothly. Really appreciate your support!</p>
+          <div class="testi-meta">
+            <span>11:32 AM</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m1 12 5 5L17 6"/><path d="m8 12 5 5L24 6"/></svg>
+          </div>
+        </div>
+      </figure>
+
+      <figure class="testi-card reveal">
+        <span class="testi-quote" aria-hidden="true">&rdquo;</span>
+        <div class="testi-bubble">
+          <p>Thanks for handling the last-minute changes so well. The team was extremely professional and responsive.</p>
+          <div class="testi-meta">
+            <span>3:45 PM</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m1 12 5 5L17 6"/><path d="m8 12 5 5L24 6"/></svg>
+          </div>
+        </div>
+      </figure>
+
+      <figure class="testi-card reveal">
+        <span class="testi-quote" aria-hidden="true">&rdquo;</span>
+        <div class="testi-bubble">
+          <p>You guys are now our go-to logistics partner for all India events. Great work!</p>
+          <div class="testi-meta">
+            <span>6:20 PM</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m1 12 5 5L17 6"/><path d="m8 12 5 5L24 6"/></svg>
+          </div>
+        </div>
+      </figure>
+
+      <figure class="testi-card reveal">
+        <span class="testi-quote" aria-hidden="true">&rdquo;</span>
+        <div class="testi-bubble">
+          <p>Perfect execution once again. No delays, no excuses – that's what we value.</p>
+          <div class="testi-meta">
+            <span>9:10 PM</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m1 12 5 5L17 6"/><path d="m8 12 5 5L24 6"/></svg>
+          </div>
+        </div>
+      </figure>
+
+    </div>
+
+    <div class="testi-dots" id="testiDots" role="tablist" aria-label="Testimonial pages">
+      <button role="tab" aria-current="true" aria-label="Testimonial group 1"></button>
+      <button role="tab" aria-current="false" aria-label="Testimonial group 2"></button>
+      <button role="tab" aria-current="false" aria-label="Testimonial group 3"></button>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING ========================== -->
+  <section class="closing container">
+    <div class="closing-banner reveal">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12.5h4l3-2 3.5 2.3a1.4 1.4 0 0 1-1.5 2.3L8 13.5"/><path d="M9 10.5l2.8-2.3a2 2 0 0 1 2.5 0L18 11l4-2.5"/><path d="M22 9v6l-4 2.5-3-2"/><path d="M2 9v6l4 2.5"/></svg>
+      <p>At Urban Glide, we don't just move goods. We take responsibility for <strong>outcomes that matter to you</strong>.</p>
+    </div>
+  </section>
+
+</main>
 
 <script>
-  var track = document.getElementById('clients-track');
-  var next = document.getElementById('clients-next');
-  if (track && next) {
-    next.addEventListener('click', function () {
-      var card = track.querySelector('.client-card');
-      var step = card ? card.offsetWidth + 16 : 200;
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: step, behavior: 'smooth' });
-      }
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------------------------------------------------------------
+     Generic reveal-on-scroll for cards, headers, banners
+  --------------------------------------------------------------------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion){
+    document.documentElement.classList.add('js-reveal-ready');
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ revealObserver.observe(el); });
+    // safety net: guarantee visibility even if an unrelated script error
+    // or a missed observer callback would otherwise leave content hidden
+    setTimeout(function(){
+      revealEls.forEach(function(el){ el.classList.add('in-view'); });
+    }, 4000);
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  /* ---------------------------------------------------------------------
+     Our Clients: next button + scroll progress
+  --------------------------------------------------------------------- */
+  var clientsTrack = document.getElementById('clientsTrack');
+  var clientsNext = document.getElementById('clientsNext');
+  var clientsProgress = document.getElementById('clientsProgress');
+
+  function updateClientsProgress(){
+    var max = clientsTrack.scrollWidth - clientsTrack.clientWidth;
+    var ratio = max > 0 ? clientsTrack.scrollLeft / max : 0;
+    var thumbWidth = Math.max(0.18, clientsTrack.clientWidth / clientsTrack.scrollWidth);
+    clientsProgress.style.width = (thumbWidth * 100) + '%';
+    clientsProgress.style.transform = 'translateX(' + (ratio * (100/thumbWidth - 100)) + '%)';
+  }
+  if (clientsTrack){
+    clientsTrack.addEventListener('scroll', function(){
+      window.requestAnimationFrame(updateClientsProgress);
+    }, { passive: true });
+    updateClientsProgress();
+  }
+  if (clientsNext){
+    clientsNext.addEventListener('click', function(){
+      var card = clientsTrack.querySelector('.client-card');
+      var step = card ? card.getBoundingClientRect().width + 16 : 240;
+      var atEnd = clientsTrack.scrollLeft + clientsTrack.clientWidth >= clientsTrack.scrollWidth - 4;
+      clientsTrack.scrollTo({
+        left: atEnd ? 0 : clientsTrack.scrollLeft + step,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
     });
   }
+
+  /* ---------------------------------------------------------------------
+     Testimonials: dot pagination synced to scroll
+  --------------------------------------------------------------------- */
+  var testiTrack = document.getElementById('testiTrack');
+  var testiDots = document.querySelectorAll('#testiDots button');
+  function updateTestiDots(){
+    var max = testiTrack.scrollWidth - testiTrack.clientWidth;
+    var ratio = max > 0 ? testiTrack.scrollLeft / max : 0;
+    var idx = Math.min(testiDots.length - 1, Math.round(ratio * (testiDots.length - 1)));
+    testiDots.forEach(function(dot, i){
+      dot.setAttribute('aria-current', i === idx ? 'true' : 'false');
+    });
+  }
+  if (testiTrack){
+    testiTrack.addEventListener('scroll', function(){
+      window.requestAnimationFrame(updateTestiDots);
+    }, { passive: true });
+    updateTestiDots();
+  }
+  testiDots.forEach(function(dot, i){
+    dot.addEventListener('click', function(){
+      var max = testiTrack.scrollWidth - testiTrack.clientWidth;
+      testiTrack.scrollTo({ left: (max / (testiDots.length - 1)) * i, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---------------------------------------------------------------------
+     Case Study journey: dynamic road that connects the actual rendered
+     position of each milestone, redrawn on load/resize, and "extended"
+     in step with scroll progress through the section.
+  --------------------------------------------------------------------- */
+  var wrap = document.getElementById('journeyWrap');
+  var roadSvg = document.getElementById('journeyRoad');
+  var roadBg = document.getElementById('roadBg');
+  var roadLine = document.getElementById('roadLine');
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var waypointIds = ['wp-1-2','wp-2-3','wp-3-4','wp-4-5','wp-5-6','wp-6-7','wp-7-8'];
+
+  function catmullRomPath(points){
+    if (points.length < 2) return '';
+    var d = 'M ' + points[0].x.toFixed(1) + ' ' + points[0].y.toFixed(1) + ' ';
+    for (var i = 0; i < points.length - 1; i++){
+      var p0 = points[i - 1] || points[i];
+      var p1 = points[i];
+      var p2 = points[i + 1];
+      var p3 = points[i + 2] || p2;
+      var c1x = p1.x + (p2.x - p0.x) / 6;
+      var c1y = p1.y + (p2.y - p0.y) / 6;
+      var c2x = p2.x - (p3.x - p1.x) / 6;
+      var c2y = p2.y - (p3.y - p1.y) / 6;
+      d += 'C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ', ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ', ' + p2.x.toFixed(1) + ' ' + p2.y.toFixed(1) + ' ';
+    }
+    return d;
+  }
+
+  var roadPoints = [];
+  var totalLength = 0;
+
+  function layoutRoad(){
+    if (!wrap || stops.length === 0) return;
+    var wrapRect = wrap.getBoundingClientRect();
+    roadSvg.setAttribute('width', wrapRect.width);
+    roadSvg.setAttribute('height', wrapRect.height);
+    roadSvg.setAttribute('viewBox', '0 0 ' + wrapRect.width + ' ' + wrapRect.height);
+
+    roadPoints = stops.map(function(stop){
+      var icon = stop.querySelector('.stop-icon');
+      var r = icon.getBoundingClientRect();
+      return {
+        x: (r.left + r.width / 2) - wrapRect.left,
+        y: (r.top + r.height / 2) - wrapRect.top
+      };
+    });
+
+    var d = catmullRomPath(roadPoints);
+    roadBg.setAttribute('d', d);
+    roadLine.setAttribute('d', d);
+
+    totalLength = roadBg.getTotalLength();
+    roadBg.style.strokeDasharray = totalLength;
+    roadLine.style.strokeDasharray = totalLength + 'px 0'; // keep dash pattern from CSS but allow offset
+
+    // position waypoint dots at the midpoint (by length) between consecutive stops
+    for (var i = 0; i < waypointIds.length; i++){
+      var dot = document.getElementById(waypointIds[i]);
+      if (!dot) continue;
+      var frac = (i + 0.5) / (roadPoints.length - 1);
+      var pt = roadBg.getPointAtLength(totalLength * frac);
+      dot.setAttribute('cx', pt.x);
+      dot.setAttribute('cy', pt.y);
+    }
+
+    updateRoadProgress();
+  }
+
+  var roadProgress = 0;
+  function updateRoadProgress(){
+    if (!wrap || totalLength === 0) return;
+    var rect = wrap.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var start = vh * 0.92;
+    var end = -rect.height * 0.15;
+    var raw = (start - rect.top) / (start - end || 1);
+    var progress = Math.max(0, Math.min(1, raw));
+    roadProgress = progress;
+
+    if (reduceMotion){
+      roadBg.style.strokeDashoffset = 0;
+      roadLine.style.strokeDashoffset = 0;
+    } else {
+      var offset = totalLength * (1 - progress);
+      roadBg.style.strokeDashoffset = offset;
+      roadLine.style.strokeDashoffset = offset;
+    }
+
+    waypointIds.forEach(function(id, i){
+      var dot = document.getElementById(id);
+      if (!dot) return;
+      var frac = (i + 0.5) / (roadPoints.length - 1);
+      dot.classList.toggle('lit', progress >= frac - 0.02);
+    });
+  }
+
+  var ticking = false;
+  function onScrollOrResize(){
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){
+      updateRoadProgress();
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScrollOrResize, { passive: true });
+
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layoutRoad, 120);
+  });
+
+  window.addEventListener('load', layoutRoad);
+  document.fonts && document.fonts.ready && document.fonts.ready.then(layoutRoad);
+  setTimeout(layoutRoad, 60);
+  setTimeout(layoutRoad, 400);
+
+  /* per-milestone reveal, in addition to the generic .reveal handling */
+  if ('IntersectionObserver' in window){
+    var stopObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.4 });
+    stops.forEach(function(stop){ stopObserver.observe(stop); });
+  }
+
+  var renewalLoop = document.getElementById('renewalLoop');
+  if (renewalLoop && 'IntersectionObserver' in window){
+    var loopObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          renewalLoop.classList.add('in-view');
+          loopObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    loopObserver.observe(renewalLoop);
+  }
+
+})();
 </script>
 </body>
 </html>
